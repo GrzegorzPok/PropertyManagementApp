@@ -1,3 +1,5 @@
+using System;
+
 namespace PropertyManagement.API.Models
 {
     public class User
@@ -6,5 +8,7 @@ namespace PropertyManagement.API.Models
         public string UserName { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
+        public string Gender { get; set; }
+        public DateTime DateOfBirth { get; set; }
     }
 }

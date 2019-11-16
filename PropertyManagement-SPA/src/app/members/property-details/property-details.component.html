@@ -1,0 +1,45 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <img class="card-img-top img-thumbnail" src="{{property?.photoUrl}}" alt="{{property?.street}}">
+        <div class="card-body">
+          <div>
+            <strong>Location:</strong>
+            <p>{{property?.country}}, {{property?.city}}, {{property?.street}} {{property?.propertyNumber}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="btn-group d-flex">
+          <button class="btn btn-primary w-100">Join</button>
+          <button class="btn btn-success w-100">Message</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="tab-panel">
+        <tabset class="member-tabset">
+          <tab heading="About property">
+            <h4>Description</h4>
+            <p>{{property?.street}}</p>
+            <h4>Flat area</h4>
+            <p>{{property?.street}}</p>
+            <h4>Room numbers</h4>
+            <p>{{property?.street}}</p>
+            <h4>Level</h4>
+            <p>{{property?.street}}</p>
+            <h4>Free places</h4>
+            <p>{{property?.street}}</p>
+          </tab>
+          <tab heading="Photos">
+            <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+          </tab>
+          <tab heading="Messages">
+            <p>Messages will go here</p>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>
