@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -40,6 +42,20 @@ namespace PropertyManagement.API.Controllers
             var propertyToReturn = _mapper.Map<PropertyForDetailedDto>(property);
             
             return Ok(propertyToReturn);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateProperty(int id, PropertyForDetailedDto propertyForDetailedDto)
+        {
+            var propertyFromRepo = await _repo.GetProperty(id);
+
+            _mapper.Map(propertyForDetailedDto, propertyFromRepo);
+            //_repo.Add(propertyFromRepo);
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception("Updating user {id} failed on save");
         }
     }
 }

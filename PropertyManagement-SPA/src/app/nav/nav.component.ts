@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { Router } from '@angular/router';
+import { PropertyService } from '../_services/property.service';
 
 @Component({
   selector: 'app-nav',
@@ -11,7 +12,8 @@ import { Router } from '@angular/router';
 export class NavComponent implements OnInit {
   model: any = {};
 
-  constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router) { }
+  constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router
+    , private propertyService: PropertyService) { }
     
 
   ngOnInit() {
@@ -37,4 +39,11 @@ export class NavComponent implements OnInit {
     this.router.navigate(['home']);
   }
 
+  isSelectedProperty() {
+    return this.propertyService.selectEmitter.value !== 0;
+  }
+
+  clearSelectedProperty() {
+    this.propertyService.selectEmitter.next(0);
+  }
 }

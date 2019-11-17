@@ -8,7 +8,7 @@ namespace PropertyManagement.API.Data
     {
          void Add<T>(T entity) where T: class;
          void Delete<T>(T entoty) where T: class;
-         Task<bool> SalesAll();
+         Task<bool> SaveAll();
          Task<IEnumerable<User>> GetUsers();
          Task<User> GetUser(int id);
          Task<IEnumerable<Property>> GetProperties();

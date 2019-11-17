@@ -19,11 +19,11 @@ import { MessagesComponent } from './messages/messages.component';
 import { appRoutes } from './routes';
 import { PropertyCardComponent } from './members/property-card/property-card.component';
 import { PropertyDetailsComponent } from './members/property-details/property-details.component';
-import { AlertifyService } from './_services/alertify.service';
-import { AuthGuard } from './_guards/auth.guard';
-import { PropertyService } from './_services/property.service';
 import { PropertyDetailResolver } from  './_resolvers/property-detail.resolver';
 import { PropertyListResolver } from './_resolvers/property-list.resolver';
+import { PropertyEditComponent } from './members/property-edit/property-edit.component';
+import { PropertyEditResolver } from './_resolvers/property-edit.resolver';
+import { PreventUndavedChanged } from './_guards/prevent-unsaved-changes.guard';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -46,7 +46,8 @@ export class CustomHammerConfig extends HammerGestureConfig {
       ListsComponent,
       MessagesComponent,
       PropertyCardComponent,
-      PropertyDetailsComponent
+      PropertyDetailsComponent,
+      PropertyEditComponent
    ],
    imports: [
       BrowserModule,
@@ -68,7 +69,9 @@ export class CustomHammerConfig extends HammerGestureConfig {
       ErrorInterceptorProvider,
       PropertyDetailResolver,
       PropertyListResolver,
-      { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
+      PropertyEditResolver,
+      { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig },
+      PreventUndavedChanged
    ],
    bootstrap: [
       AppComponent

@@ -7,6 +7,9 @@ import { AuthGuard } from './_guards/auth.guard';
 import { PropertyDetailsComponent } from './members/property-details/property-details.component';
 import { PropertyDetailResolver } from './_resolvers/property-detail.resolver';
 import { PropertyListResolver } from './_resolvers/property-list.resolver';
+import { PropertyEditComponent } from './members/property-edit/property-edit.component';
+import { PropertyEditResolver } from './_resolvers/property-edit.resolver';
+import { PreventUndavedChanged } from './_guards/prevent-unsaved-changes.guard';
 
 export const appRoutes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -17,6 +20,8 @@ export const appRoutes: Routes = [
         children: [
             {path: 'members', component: MemberListComponent, resolve: {properties: PropertyListResolver}},
             {path: 'members/:id', component: PropertyDetailsComponent, resolve: {property: PropertyDetailResolver}},
+            {path: 'property/edit', component: PropertyEditComponent, resolve: {property: PropertyEditResolver}
+                , canDeactivate: [PreventUndavedChanged]},
             {path: 'messages', component: MessagesComponent},
             {path: 'lists', component: ListsComponent},
         ]

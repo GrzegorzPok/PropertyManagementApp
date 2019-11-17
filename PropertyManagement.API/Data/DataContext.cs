@@ -8,6 +8,13 @@ namespace PropertyManagement.API.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
             
+        }        
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Property>().HasKey(p => new { p.Id });
+            modelBuilder.Entity<User>().HasKey(p => new { p.Id });
+            modelBuilder.Entity<Photo>().HasKey(p => new { p.Id });
         }
 
         public DbSet<Value> Values { get; set; }

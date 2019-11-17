@@ -14,6 +14,8 @@ namespace PropertyManagement.API.Helpers
             CreateMap<Property, PropertyForDetailedDto>() 
                 .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.isMain).Url));
             CreateMap<Photo, PhotosForDetailedDto>();
-        }
+            CreateMap<PhotosForDetailedDto, Photo>();
+            CreateMap<PropertyForDetailedDto, Property>();
+        } 
     }
 }

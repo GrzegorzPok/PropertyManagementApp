@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Property } from '../_models/Property';
+import * as Rx from 'rxjs';
 
 
 @Injectable({
@@ -10,6 +11,7 @@ import { Property } from '../_models/Property';
 })
 export class PropertyService {
   baseUrl = environment.apiUrl;
+  selectEmitter = new Rx.BehaviorSubject<Number>(0);
 
 constructor(private http: HttpClient) { }
 
@@ -18,7 +20,11 @@ constructor(private http: HttpClient) { }
   }
 
   getProperty(id): Observable<Property> {
+    this.selectEmitter.next(id);
     return this.http.get<Property>(this.baseUrl + 'properties/' + id);
   }
 
+  updateProperty(id: number, property: Property){
+    return this.http.put(this.baseUrl + 'properties/' + id, property);
+  }
 }

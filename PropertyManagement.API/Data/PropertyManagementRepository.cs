@@ -51,7 +51,7 @@ namespace PropertyManagement.API.Data
             return users;
         }
 
-        public async Task<bool> SalesAll()
+        public async Task<bool> SaveAll()
         {
             return await _context.SaveChangesAsync() > 0;
         }
