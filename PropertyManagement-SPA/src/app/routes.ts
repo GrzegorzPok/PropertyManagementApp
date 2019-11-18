@@ -20,8 +20,7 @@ export const appRoutes: Routes = [
         children: [
             {path: 'members', component: MemberListComponent, resolve: {properties: PropertyListResolver}},
             {path: 'members/:id', component: PropertyDetailsComponent, resolve: {property: PropertyDetailResolver}},
-            {path: 'property/edit', component: PropertyEditComponent, resolve: {property: PropertyEditResolver}
-                , canDeactivate: [PreventUndavedChanged]},
+            {path: 'property/edit', component: PropertyEditComponent, resolve: {property: PropertyEditResolver}},
             {path: 'messages', component: MessagesComponent},
             {path: 'lists', component: ListsComponent},
         ]

@@ -21,10 +21,15 @@ constructor(private http: HttpClient) { }
 
   getProperty(id): Observable<Property> {
     this.selectEmitter.next(id);
-    return this.http.get<Property>(this.baseUrl + 'properties/' + id);
+    if (id != 0) {
+      return this.http.get<Property>(this.baseUrl + 'properties/' + id);
+    }
+    else {
+      return this.http.get<Property>(this.baseUrl + 'properties/empty');
+    }
   }
 
-  updateProperty(id: number, property: Property){
+  updateProperty(id: number, property: Property) {
     return this.http.put(this.baseUrl + 'properties/' + id, property);
   }
 }

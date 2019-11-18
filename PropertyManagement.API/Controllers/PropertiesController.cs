@@ -44,13 +44,30 @@ namespace PropertyManagement.API.Controllers
             return Ok(propertyToReturn);
         }
 
+        [HttpGet("empty")]
+        public async Task<IActionResult> GetEmptyProperty(int id)
+        {
+            var property = await _repo.GetEmptyProperty();
+
+            var propertyToReturn = _mapper.Map<PropertyForDetailedDto>(property);
+            
+            return Ok(propertyToReturn);
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProperty(int id, PropertyForDetailedDto propertyForDetailedDto)
         {
-            var propertyFromRepo = await _repo.GetProperty(id);
-
-            _mapper.Map(propertyForDetailedDto, propertyFromRepo);
-            //_repo.Add(propertyFromRepo);
+            if (id != 0)
+            {
+                var propertyFromRepo = await _repo.GetProperty(id);
+                _mapper.Map(propertyForDetailedDto, propertyFromRepo);
+             }
+             else
+             {
+                 var propertyFromRepo = await _repo.GetEmptyProperty();
+                _mapper.Map(propertyForDetailedDto, propertyFromRepo);
+                _repo.Add(propertyFromRepo);
+             }        
 
             if (await _repo.SaveAll())
                 return NoContent();

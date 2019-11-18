@@ -9,8 +9,7 @@ import { AuthService } from '../_services/auth.service';
 
 @Injectable()
 export class PropertyEditResolver implements Resolve<Property> {
-    constructor(private propertyService: PropertyService, private routerL: Router, private alertify: AlertifyService,
-        private authService: AuthService) {}
+    constructor(private propertyService: PropertyService, private routerL: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot) : Observable<Property> {
         return this.propertyService.getProperty(this.propertyService.selectEmitter.value).pipe(

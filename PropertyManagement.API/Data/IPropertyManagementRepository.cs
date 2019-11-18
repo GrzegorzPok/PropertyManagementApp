@@ -13,5 +13,6 @@ namespace PropertyManagement.API.Data
          Task<User> GetUser(int id);
          Task<IEnumerable<Property>> GetProperties();
          Task<Property> GetProperty(int id);
+         Task<Property> GetEmptyProperty();
     }
 }

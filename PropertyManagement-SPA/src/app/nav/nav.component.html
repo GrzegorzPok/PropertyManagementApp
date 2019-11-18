@@ -20,7 +20,7 @@
           Welcome {{authService.decodedToken?.unique_name | titlecase}}
         </a>
         <div class="dropdown-menu mt-3" *dropdownMenu>
-          <a class="dropdown-item" href="#"><i class="fa fa-plus"></i>Add flat</a>
+          <a class="dropdown-item" class="dropdown-item" [routerLink]="['/property/edit']"><i class="fa fa-plus"></i>Add flat</a>
           <div class="dropdown-devider"></div>
           <a *ngIf="isSelectedProperty()" class="dropdown-item" [routerLink]="['/property/edit']"><i class="fa fa-home"></i>Edit flat</a>
           <div class="dropdown-devider"></div>

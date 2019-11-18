@@ -31,11 +31,11 @@ export class PropertyEditComponent implements OnInit {
   }
 
   updateProperty() {
-    console.log(this.property);
     if (!this.saved) {
         this.propertyService.updateProperty(this.property.id, this.property).subscribe(next => {
         this.alertify.success('Profile updated successfylly');
-        this.saved = true;
+        this.property = null;
+        this.propertyService.selectEmitter.next(0);
       }, error => {
         console.log(error);
         this.alertify.error(error);
