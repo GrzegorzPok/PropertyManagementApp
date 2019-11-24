@@ -42,4 +42,8 @@ export class PropertyEditComponent implements OnInit {
       });
     }
   }
+
+  updateMainPhoto(photoUrl) {
+    this.property.photoUrl = photoUrl;
+  }
 }

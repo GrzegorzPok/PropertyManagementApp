@@ -31,6 +31,9 @@ namespace PropertyManagement.API.Migrations
                     b.Property<int>("PropertyId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("PublicId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Url")
                         .HasColumnType("TEXT");
 

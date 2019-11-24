@@ -32,4 +32,12 @@ constructor(private http: HttpClient) { }
   updateProperty(id: number, property: Property) {
     return this.http.put(this.baseUrl + 'properties/' + id, property);
   }
+
+  setMainPhoto(propertyId: any, id: number) {
+    return this.http.post(this.baseUrl + 'properties/' + propertyId + '/photos/' + id + '/setMain', {});
+  }
+
+  deletePhoto(propertyId: any, id: number) {
+    return this.http.delete(this.baseUrl + 'properties/' + propertyId + '/photos/' + id);
+  }
 }

@@ -9,6 +9,7 @@ namespace PropertyManagement.API.Models
         public string Description { get; set; }
         public DateTime DateAdded { get; set; }
         public bool isMain { get; set; }
+        public string PublicId { get; set; }
         public int PropertyId { get; set; }
     }
 }

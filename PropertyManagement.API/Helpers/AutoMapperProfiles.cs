@@ -16,6 +16,8 @@ namespace PropertyManagement.API.Helpers
             CreateMap<Photo, PhotosForDetailedDto>();
             CreateMap<PhotosForDetailedDto, Photo>();
             CreateMap<PropertyForDetailedDto, Property>();
+            CreateMap<Photo, PhotoForReturnDto>();
+            CreateMap<PhotoForCreationDto, Photo>();
         } 
     }
 }
