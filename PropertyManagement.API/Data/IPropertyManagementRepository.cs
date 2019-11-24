@@ -16,5 +16,7 @@ namespace PropertyManagement.API.Data
          Task<Property> GetEmptyProperty();
          Task<Photo> GetPhoto(int id);
          Task<Photo> GetMainPhotoForProperty(int propertyId);
+         Task<Rent> GetRent(int userId, int propertyId);
+         Task<IEnumerable<int>> GetUserRents(int userId);
     }
 }

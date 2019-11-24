@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
+import * as Rx from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class AuthService {
   baseUrl = environment.apiUrl + 'auth/';
   jwtHelper = new JwtHelperService();
   decodedToken: any;
+  loggedUserId = new Rx.BehaviorSubject<Number>(0);
 
   constructor(private http: HttpClient) { }
 
@@ -19,10 +21,10 @@ export class AuthService {
       .pipe(
         map((response: any) => {
           const user = response;
+          this.loggedUserId.next(user.loggedId);
           if (user) {
             localStorage.setItem('token', user.token);
             this.decodedToken = this.jwtHelper.decodeToken(user.token);
-            console.log(this.decodedToken);
           }
         })
       );

@@ -19,6 +19,14 @@ constructor(private http: HttpClient) { }
     return this.http.get<Property[]>(this.baseUrl + 'properties');
   }
 
+  getMyProperties(userId: number): Observable<Property[]> {
+    return this.http.get<Property[]>(this.baseUrl + 'properties/' + userId + '/my');
+  }
+  
+  getRentedProperties(userId: number): Observable<Property[]> {
+    return this.http.get<Property[]>(this.baseUrl + 'properties/' + userId + '/rented');
+  }
+
   getProperty(id): Observable<Property> {
     this.selectEmitter.next(id);
     if (id != 0) {
@@ -39,5 +47,9 @@ constructor(private http: HttpClient) { }
 
   deletePhoto(propertyId: any, id: number) {
     return this.http.delete(this.baseUrl + 'properties/' + propertyId + '/photos/' + id);
+  }
+
+  sendRent(id: number, userId: any) {
+    return this.http.post(this.baseUrl + 'properties/' + id + '/rent/' + userId, {});
   }
 }

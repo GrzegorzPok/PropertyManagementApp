@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PropertyManagement.API.Models;
@@ -56,6 +54,10 @@ namespace PropertyManagement.API.Data
             property.City = "";
             property.PropertyNumber = "";
             property.Street = "";
+            property.Description = "";
+            property.Level = 1;
+            property.FlatArea = 0;
+            property.RoomNumbers = 0;
 
             return  property;
         }
@@ -71,7 +73,16 @@ namespace PropertyManagement.API.Data
         {
             var users = await _context.Users.ToListAsync();
 
+            //var userRents = await GetUserRents()
+
             return users;
+        }
+
+        public async Task<IEnumerable<int>> GetUserRents(int userId)
+        {
+            var user = await _context.Users.Include(c => c.Rents).FirstOrDefaultAsync(u => u.Id == userId);
+
+            return user.Rents.Where(u => u.UserId == userId).Select(i => i.PropertyId);
         }
 
         public async Task<bool> SaveAll()
@@ -83,6 +94,11 @@ namespace PropertyManagement.API.Data
         {
             return await _context.Photos.Where(p => p.PropertyId == propertyId)
                 .FirstOrDefaultAsync(p => p.isMain);
+        }
+
+        public async Task<Rent> GetRent(int userId, int propertyId)
+        {
+            return await _context.Rents.FirstOrDefaultAsync(r => r.UserId == userId && r.PropertyId == propertyId);
         }
     }
 }

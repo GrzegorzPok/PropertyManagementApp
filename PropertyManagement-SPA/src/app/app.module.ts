@@ -25,6 +25,7 @@ import { PropertyEditComponent } from './members/property-edit/property-edit.com
 import { PropertyEditResolver } from './_resolvers/property-edit.resolver';
 import { PreventUndavedChanged } from './_guards/prevent-unsaved-changes.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { ListsResolver } from './_resolvers/lists.resolver';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -74,7 +75,8 @@ export class CustomHammerConfig extends HammerGestureConfig {
       PropertyListResolver,
       PropertyEditResolver,
       { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig },
-      PreventUndavedChanged
+      PreventUndavedChanged,
+      ListsResolver
    ],
    bootstrap: [
       AppComponent

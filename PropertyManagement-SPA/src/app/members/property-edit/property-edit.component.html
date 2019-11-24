@@ -28,15 +28,19 @@
           <tab heading="Edit profile">
             <form #editForm="ngForm" id="editForm" (ngSubmit)="updateProperty()">
                 <h4>Description</h4>
-                <textarea name="introduction" rows="6" class="form-control" [(ngModel)]="property.street"></textarea>
-                <h4>Flat area</h4>
+                <textarea name="introduction" rows="6" class="form-control" [(ngModel)]="property.description"></textarea>
+                <h4>Country</h4>
                 <textarea name="area" rows="1" class="form-control" [(ngModel)]="property.country"></textarea>
+                <h4>Street</h4>
+                <textarea name="area" rows="1" class="form-control" [(ngModel)]="property.street"></textarea>
+                <h4>propertyNumber</h4>
+                <textarea name="area" rows="1" class="form-control" [(ngModel)]="property.propertyNumber"></textarea>
+                <h4>Flat area</h4>
+                <textarea name="area" rows="1" class="form-control" [(ngModel)]="property.flatArea"></textarea>
                 <h4>Room numbers</h4>
-                <textarea name="roomnumbers" rows="1" class="form-control" [(ngModel)]="property.propertyNumber"></textarea>
+                <textarea name="roomnumbers" rows="1" class="form-control" [(ngModel)]="property.roomNumbers"></textarea>
                 <h4>Level</h4>
-                <textarea name="introduction" rows="1" class="form-control" [(ngModel)]="property.street"></textarea>
-                <h4>Free places</h4>
-                <textarea name="freeplaces" rows="1" class="form-control" [(ngModel)]="property.street"></textarea>
+                <textarea name="introduction" rows="1" class="form-control" [(ngModel)]="property.level"></textarea>
             </form>
           </tab>
           <tab heading="Edit Photos">

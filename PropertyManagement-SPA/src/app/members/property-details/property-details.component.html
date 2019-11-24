@@ -22,15 +22,19 @@
         <tabset class="member-tabset">
           <tab heading="About property">
             <h4>Description</h4>
+            <p>{{property?.description}}</p>
+            <h4>Country</h4>
+            <p>{{property?.country}}</p>
+            <h4>Street</h4>
             <p>{{property?.street}}</p>
+            <h4>Property number</h4>
+            <p>{{property?.propertyNumber}}</p>
             <h4>Flat area</h4>
-            <p>{{property?.street}}</p>
+            <p>{{property?.flatArea}}</p>
             <h4>Room numbers</h4>
-            <p>{{property?.street}}</p>
+            <p>{{property?.roomNumbers}}</p>
             <h4>Level</h4>
-            <p>{{property?.street}}</p>
-            <h4>Free places</h4>
-            <p>{{property?.street}}</p>
+            <p>{{property?.level}}</p>
           </tab>
           <tab heading="Photos">
             <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>

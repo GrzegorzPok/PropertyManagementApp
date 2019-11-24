@@ -10,6 +10,7 @@ import { PropertyListResolver } from './_resolvers/property-list.resolver';
 import { PropertyEditComponent } from './members/property-edit/property-edit.component';
 import { PropertyEditResolver } from './_resolvers/property-edit.resolver';
 import { PreventUndavedChanged } from './_guards/prevent-unsaved-changes.guard';
+import { ListsResolver } from './_resolvers/lists.resolver';
 
 export const appRoutes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -22,7 +23,7 @@ export const appRoutes: Routes = [
             {path: 'members/:id', component: PropertyDetailsComponent, resolve: {property: PropertyDetailResolver}},
             {path: 'property/edit', component: PropertyEditComponent, resolve: {property: PropertyEditResolver}},
             {path: 'messages', component: MessagesComponent},
-            {path: 'lists', component: ListsComponent},
+            {path: 'lists', component: ListsComponent, resolve: {properties: ListsResolver}},
         ]
     },
     {path: '**', redirectTo: 'home', pathMatch: 'full'}

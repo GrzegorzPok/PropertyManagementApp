@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace PropertyManagement.API.Models
 {
@@ -10,5 +11,6 @@ namespace PropertyManagement.API.Models
         public byte[] PasswordSalt { get; set; }
         public string Gender { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public ICollection<Rent> Rents { get; set; }
     }
 }

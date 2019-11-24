@@ -9,8 +9,8 @@ using PropertyManagement.API.Data;
 namespace PropertyManagement.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191119172234_AddedPublicId")]
-    partial class AddedPublicId
+    [Migration("20191124150213_OwnerAdded")]
+    partial class OwnerAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,15 +61,47 @@ namespace PropertyManagement.API.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("FlatArea")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("PropertyNumber")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("RoomNumbers")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Street")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("OwnerId");
+
                     b.ToTable("Properties");
+                });
+
+            modelBuilder.Entity("PropertyManagement.API.Models.Rent", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("UserId", "PropertyId");
+
+                    b.HasIndex("PropertyId");
+
+                    b.ToTable("Rents");
                 });
 
             modelBuilder.Entity("PropertyManagement.API.Models.User", b =>
@@ -118,6 +150,30 @@ namespace PropertyManagement.API.Migrations
                         .WithMany("Photos")
                         .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PropertyManagement.API.Models.Property", b =>
+                {
+                    b.HasOne("PropertyManagement.API.Models.User", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PropertyManagement.API.Models.Rent", b =>
+                {
+                    b.HasOne("PropertyManagement.API.Models.Property", "Property")
+                        .WithMany()
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PropertyManagement.API.Models.User", "User")
+                        .WithMany("Rents")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

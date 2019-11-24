@@ -22,7 +22,8 @@ export class PropertyEditComponent implements OnInit {
     }
   }
 
-  constructor(private route: ActivatedRoute, private alertify: AlertifyService, private propertyService: PropertyService) { }
+  constructor(private route: ActivatedRoute, private alertify: AlertifyService, 
+              private propertyService: PropertyService, private authService: AuthService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -31,6 +32,7 @@ export class PropertyEditComponent implements OnInit {
   }
 
   updateProperty() {
+    this.property.ownerId = this.authService.decodedToken.nameid;
     if (!this.saved) {
         this.propertyService.updateProperty(this.property.id, this.property).subscribe(next => {
         this.alertify.success('Profile updated successfylly');
