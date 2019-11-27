@@ -11,6 +11,7 @@ import { PropertyEditComponent } from './members/property-edit/property-edit.com
 import { PropertyEditResolver } from './_resolvers/property-edit.resolver';
 import { PreventUndavedChanged } from './_guards/prevent-unsaved-changes.guard';
 import { ListsResolver } from './_resolvers/lists.resolver';
+import { MessagesResolver } from './_resolvers/messages.resolver';
 
 export const appRoutes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -22,7 +23,7 @@ export const appRoutes: Routes = [
             {path: 'members', component: MemberListComponent, resolve: {properties: PropertyListResolver}},
             {path: 'members/:id', component: PropertyDetailsComponent, resolve: {property: PropertyDetailResolver}},
             {path: 'property/edit', component: PropertyEditComponent, resolve: {property: PropertyEditResolver}},
-            {path: 'messages', component: MessagesComponent},
+            {path: 'messages', component: MessagesComponent, resolve: {messages: MessagesResolver}},
             {path: 'lists', component: ListsComponent, resolve: {properties: ListsResolver}},
         ]
     },

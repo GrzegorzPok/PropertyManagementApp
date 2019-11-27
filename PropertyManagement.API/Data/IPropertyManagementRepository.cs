@@ -18,5 +18,8 @@ namespace PropertyManagement.API.Data
          Task<Photo> GetMainPhotoForProperty(int propertyId);
          Task<Rent> GetRent(int userId, int propertyId);
          Task<IEnumerable<int>> GetUserRents(int userId);
+         Task<Message> GetMessage(int id);
+         Task<IEnumerable<Message>> GetMessagesForUser(bool? isInbox, int userId);
+         Task<IEnumerable<Message>> GetMessageThread(int propertyId);
     }
 }

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Property } from '../_models/Property';
 import * as Rx from 'rxjs';
+import { Message } from '../_models/message';
 
 
 @Injectable({
@@ -51,5 +52,30 @@ constructor(private http: HttpClient) { }
 
   sendRent(id: number, userId: any) {
     return this.http.post(this.baseUrl + 'properties/' + id + '/rent/' + userId, {});
+  }
+
+  getMessages(id: number, isInbox: boolean) {
+    if (isInbox) {
+      return this.http.get<Message[]>(this.baseUrl + 'messages/users/' + id + '/sent');
+    }
+    else {
+      return this.http.get<Message[]>(this.baseUrl + 'messages/users/' + id + '/received');
+    }
+  }
+
+  getUnreadMessages(id: number) {
+    return this.http.get<Message[]>(this.baseUrl + 'messages/users/' + id + '/unread');
+  }
+
+  getMessageThread(propertyid: any) {
+    return this.http.get<Message[]>(this.baseUrl + 'messages/thread/' + propertyid);
+  }
+
+  sendMessage(id: any, message: Message) {
+    return this.http.post(this.baseUrl + 'messages/' + id, message);
+  }
+
+  deleteMessage(Id: number) {
+    return this.http.post(this.baseUrl + 'messages/' + Id + '/delete', {});
   }
 }

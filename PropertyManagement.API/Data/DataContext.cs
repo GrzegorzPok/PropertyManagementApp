@@ -15,6 +15,7 @@ namespace PropertyManagement.API.Data
         public DbSet<Photo> Photos { get; set;}
         public DbSet<Property> Properties { get; set; }
         public DbSet<Rent> Rents { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,6 +36,16 @@ namespace PropertyManagement.API.Data
                 .WithMany(p => p.Rents)
                 .HasForeignKey(p => p.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Message>()
+                .HasOne(m => m.Sender)
+                .WithMany(m => m.MessageSent)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Message>()
+                .HasOne(m => m.Property)
+                .WithMany(m => m.MessagesReceived)
+                .OnDelete(DeleteBehavior.Restrict); 
         }
     }
 }

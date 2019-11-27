@@ -26,6 +26,8 @@ import { PropertyEditResolver } from './_resolvers/property-edit.resolver';
 import { PreventUndavedChanged } from './_guards/prevent-unsaved-changes.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { ListsResolver } from './_resolvers/lists.resolver';
+import { MessagesResolver } from './_resolvers/messages.resolver';
+import { PropertyMessagesComponent } from './members/property-messages/property-messages.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -50,7 +52,8 @@ export class CustomHammerConfig extends HammerGestureConfig {
       PropertyCardComponent,
       PropertyDetailsComponent,
       PropertyEditComponent,
-      PhotoEditorComponent
+      PhotoEditorComponent,
+      PropertyMessagesComponent
    ],
    imports: [
       BrowserModule,
@@ -76,7 +79,8 @@ export class CustomHammerConfig extends HammerGestureConfig {
       PropertyEditResolver,
       { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig },
       PreventUndavedChanged,
-      ListsResolver
+      ListsResolver,
+      MessagesResolver
    ],
    bootstrap: [
       AppComponent

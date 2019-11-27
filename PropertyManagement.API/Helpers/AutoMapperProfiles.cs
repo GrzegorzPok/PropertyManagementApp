@@ -18,6 +18,10 @@ namespace PropertyManagement.API.Helpers
             CreateMap<PropertyForDetailedDto, Property>();
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();
+            CreateMap<MessageForCreationDto, Message>();
+            CreateMap<Message, MessageToReturnDto>()
+                .ForMember(m => m.SenderLogin, opt => opt
+                    .MapFrom(u => u.Sender.UserName));
         } 
     }
 }

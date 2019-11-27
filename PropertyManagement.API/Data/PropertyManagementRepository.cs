@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PropertyManagement.API.Models;
 
@@ -99,6 +100,55 @@ namespace PropertyManagement.API.Data
         public async Task<Rent> GetRent(int userId, int propertyId)
         {
             return await _context.Rents.FirstOrDefaultAsync(r => r.UserId == userId && r.PropertyId == propertyId);
+        }
+
+        public async Task<Message> GetMessage(int id)
+        {
+            return await _context.Messages.FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public async Task<IEnumerable<Message>> GetMessagesForUser(bool? isInbox, int userId)
+        {
+            var messages = await _context.Messages
+                .Include(i => i.Sender)
+                .Include(i => i.Property)
+                .ToListAsync();
+
+            if (isInbox.HasValue && isInbox.Value) {
+                messages = messages.Where(u => u.SenderId == userId && u.SenderDeleted == false).ToList();
+            }
+            else if (isInbox.HasValue && !isInbox.Value) {
+                var myPropierties = _context.Rents
+                    .Where(r => r.UserId == userId)
+                    .Select(r => r.PropertyId)
+                    .ToList();
+
+                var reveivers = _context.Rents
+                    .Where(r => myPropierties.Any(m => m == r.PropertyId))
+                    .Select(r => r.UserId)
+                    .Distinct()
+                    .ToList();
+
+                messages = messages.Where(m => reveivers.Any(r => r == m.SenderId) && m.SenderId != userId).ToList();
+            }
+            else {
+                messages = messages.Where(m => m.SenderId == userId && m.IsRead == false && m.SenderDeleted == false).ToList();
+            }
+
+            messages = messages.OrderByDescending(d => d.MessageSent).ToList();
+            return messages;
+        }
+
+        public async Task<IEnumerable<Message>> GetMessageThread(int propertyId)
+        {
+            var messages = await _context.Messages
+                .Include(i => i.Sender)
+                .Include(i => i.Property)
+                .Where(m => m.PropertyId == propertyId && m.SenderDeleted == false)
+                .OrderByDescending(m => m.MessageSent)
+                .ToListAsync();
+
+            return messages;
         }
     }
 }

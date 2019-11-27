@@ -16,5 +16,6 @@ namespace PropertyManagement.API.Models
         public User Owner { get; set; }
         public int OwnerId { get; set; }
         public ICollection<Photo> Photos { get; set; }
+        public ICollection<Message> MessagesReceived { get; set; }
     }
 }

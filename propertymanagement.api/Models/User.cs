@@ -12,5 +12,6 @@ namespace PropertyManagement.API.Models
         public string Gender { get; set; }
         public DateTime DateOfBirth { get; set; }
         public ICollection<Rent> Rents { get; set; }
+        public ICollection<Message> MessageSent { get; set; }
     }
 }
