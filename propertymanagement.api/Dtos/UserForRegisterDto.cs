@@ -8,7 +8,7 @@ namespace PropertyManagement.API.Dtos
         public string Username { get; set; }
 
         [Required]
-        [StringLength(20, MinimumLength = 4, ErrorMessage = "Hasło musi składć się z minimum 4, oraz maksimum 20 znaków")]
+        [StringLength(20, MinimumLength = 4, ErrorMessage = "The password must be between 4 and 20 characters")]
         public string Password { get; set; }
     }
 }

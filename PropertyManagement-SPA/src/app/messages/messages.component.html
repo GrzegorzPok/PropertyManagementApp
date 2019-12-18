@@ -1,13 +1,10 @@
 <div class="container mt-5">
     <div class="row">
       <div class="btn-group">
-        <button class="btn btn-primary" btnRadio="Unread" (click)="loadUnreadMessages()">
-          <i class="fa fa-envelope"></i> Unread
-        </button>
-        <button class="btn btn-primary" btnRadio="Inbox" (click)="loadSentMessages()">
+        <button class="btn btn-primary" btnRadio="Inbox" (click)="loadReceivedMessages()">
           <i class="fa fa-envelope-open"></i> Inbox
         </button>
-        <button class="btn btn-primary" btnRadio="Outbox" (click)="loadReceivedMessages()">
+        <button class="btn btn-primary" btnRadio="Outbox" (click)="loadSentMessages()">
           <i class="fa fa-paper-plane"></i> Outbox
         </button>
       </div>
@@ -40,7 +37,7 @@
           </td> 
           <td>{{message.messageSent}}</td>
           <td>
-            <button class="btn btn-danger" (click)="$event.stopPropagation()" (click)="deleteMessage(message.id)">Delete</button>
+            <button [disabled]="messageContainer != 'Outbox'" class="btn btn-danger" (click)="$event.stopPropagation()" (click)="deleteMessage(message.id)">Delete</button>
           </td>
         </tr>
       </table>

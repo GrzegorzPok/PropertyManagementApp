@@ -5,6 +5,7 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 import { TabsetComponent } from 'ngx-bootstrap';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-property-details',
@@ -16,8 +17,18 @@ export class PropertyDetailsComponent implements OnInit {
   property: Property;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
+  joined = false;
 
-  constructor(private propertyService: PropertyService, private aletrify: AlertifyService, private route: ActivatedRoute) { }
+  constructor(private propertyService: PropertyService, private authService: AuthService, private aletrify: AlertifyService, private route: ActivatedRoute) { 
+    this.propertyService.getRentedProperties(this.authService.decodedToken.nameid).subscribe(data => {
+      for (const d of data) {
+        if (d.id == this.propertyService.selectEmitter.value) {
+          this.joined = true;
+          break;
+        }
+      }
+    });
+  }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -27,7 +38,7 @@ export class PropertyDetailsComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const selectedTab = params['tab'];
       this.memberTabs.tabs[selectedTab > 0 ? selectedTab : 0].active = true;
-    })
+    });
 
     this.galleryOptions = [
       {
@@ -57,5 +68,15 @@ export class PropertyDetailsComponent implements OnInit {
 
   selectTab(tabId: number) {
     this.memberTabs.tabs[tabId].active = true;
+  }
+
+  removeProporty() {
+    this.aletrify.confirm('Are you sure you want to delete this property?', () => {
+      this.propertyService.deleteProperty(this.propertyService.selectEmitter.value).subscribe(() => {
+        this.aletrify.success('Property has been deleted');
+      }, error => {
+        this.aletrify.error('Failed to delete the property');
+      });
+    });
   }
 }

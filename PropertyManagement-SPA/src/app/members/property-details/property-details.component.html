@@ -11,8 +11,8 @@
         </div>
       </div>
       <div class="card-footer">
-        <div class="btn-group d-flex">
-          <button class="btn btn-primary w-100">Join</button>
+        <div *ngIf=joined  class="btn-group d-flex">
+          <button class="btn btn-primary w-100" (click)="removeProporty()">Remove</button>
           <button class="btn btn-success w-100" (click)="selectTab(2)">Message</button>
         </div>
       </div>
@@ -39,7 +39,7 @@
           <tab heading="Photos">
             <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
           </tab>
-          <tab heading="Messages">
+          <tab *ngIf=joined heading="Messages">
             <app-property-messages></app-property-messages>
           </tab>
         </tabset>

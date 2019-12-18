@@ -51,15 +51,6 @@ namespace PropertyManagement.API.Data
         {
             var property = new Property(); 
 
-            property.Country = "";
-            property.City = "";
-            property.PropertyNumber = "";
-            property.Street = "";
-            property.Description = "";
-            property.Level = 1;
-            property.FlatArea = 0;
-            property.RoomNumbers = 0;
-
             return  property;
         }
 

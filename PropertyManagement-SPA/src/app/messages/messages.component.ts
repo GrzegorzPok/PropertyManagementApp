@@ -26,12 +26,14 @@ export class MessagesComponent implements OnInit {
   }
 
   loadReceivedMessages() {
+    this.messageContainer = 'Inbox';
     this.propertyService.getMessages(this.authService.decodedToken.nameid, false).subscribe((data: Message[]) => {
       this.messages = data;
     });
   }
 
   loadSentMessages() {
+    this.messageContainer = 'Outbox';
     this.propertyService.getMessages(this.authService.decodedToken.nameid, true).subscribe((data: Message[]) => {
       this.messages = data;
     });

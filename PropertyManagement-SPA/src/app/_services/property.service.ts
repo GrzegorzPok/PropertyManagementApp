@@ -78,4 +78,9 @@ constructor(private http: HttpClient) { }
   deleteMessage(Id: number) {
     return this.http.post(this.baseUrl + 'messages/' + Id + '/delete', {});
   }
+
+  deleteProperty(id: any) {
+    console.log(this.baseUrl + 'properties/' + id);
+    return this.http.delete(this.baseUrl + 'properties/' + id);
+  }
 }

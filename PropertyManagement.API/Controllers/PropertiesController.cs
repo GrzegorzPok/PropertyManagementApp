@@ -126,5 +126,21 @@ namespace PropertyManagement.API.Controllers
 
             return BadRequest("Failed to rent property");
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProperty(int id)
+        {
+            var property = await _repo.GetProperty(id);
+            if (property == null) {
+                return NotFound();
+            }
+
+            _repo.Delete(property);
+            
+            if (await _repo.SaveAll())
+                return Ok();
+
+            throw new Exception("Error deleting the property");
+        }
     }
 }
